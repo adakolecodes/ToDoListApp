@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-6">
-      <input class="form-control" type="text" v-model="newTodo" />
+      <input class="form-control" type="text" id="newTodo" v-model="newTodo" />
     </div>
     <div class="col-md-6">
       <button class="btn btn-secondary btn-sm" @click="addTodo">
@@ -15,7 +15,10 @@
       <li
         v-for="todo in todos"
         :key="todo.id"
-        :class="'list-group-item d-flex justify-content-between align-items-center' + (todo.completed === true ? ' list-group-item-success' : '')"
+        :class="
+          'list-group-item d-flex justify-content-between align-items-center' +
+          (todo.completed === true ? ' list-group-item-success' : '')
+        "
         @dblclick="toggleTodo(todo.id)"
       >
         {{ todo.title }}
@@ -28,9 +31,11 @@
 </template>
 
 <script setup>
+import { useToast } from "vue-toastification"; // Importing useToast function from Vue Toast
 import { ref, computed, onMounted } from "vue"; // Importing necessary Composition API functions from Vue
 import { useStore } from "vuex"; // Importing useStore function from Vuex to access the store
 
+const toast = useToast(); // Get toast interface
 const store = useStore(); // Accessing the Vuex store instance
 const newTodo = ref(""); // Creating a reactive reference for the new todo input value
 
@@ -43,20 +48,27 @@ const todos = computed(() => store.state.todos); // Creating a computed property
 
 // Function to add a new todo
 const addTodo = () => {
-  if (newTodo.value.trim()) { // Checking if the input is not empty
-    store.dispatch("addTodo", newTodo.value.trim()); // Dispatching an action to add the new todo
+  if (!newTodo.value) {// Checking if the input is empty
+    // Display a toast error message if field is empty
+    toast.error("Please enter a title for your to-do.");
+    return;
+  }
+
+  if(store.dispatch("addTodo", newTodo.value.trim())){ // Dispatching an action to add the new todo
+    toast.success("Todo added successfully");
     newTodo.value = ""; // Resetting the input field
   }
 };
 
 // Function to delete a todo by its id
 const deleteTodo = (id) => {
-  store.dispatch("deleteTodo", id); // Dispatching an action to delete the todo
+  if(store.dispatch("deleteTodo", id)){ // Dispatching an action to delete the todo
+    toast.success("Todo deleted successfully");
+  }
 };
 
 // Function to toggle the completion status of a todo
 const toggleTodo = (id) => {
-  store.dispatch('toggleTodo', id);
+  store.dispatch("toggleTodo", id);
 };
-
 </script>
