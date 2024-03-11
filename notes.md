@@ -29,3 +29,30 @@ async fetchTodos({ commit }) {
 ```
 
 In summary, the fetchTodos action fetches todo items from an external API and then uses the SET_TODOS mutation to update the todos array in the Vuex store's state with the fetched data. This allows the application to display the latest todo items to the user.
+
+
+# Installations
+
+Install vuex and axios together:
+
+`npm install vuex@next axios`
+
+Install Bootstrap:
+
+`npm install bootstrap@5.1.3`
+
+Import Bootstrap to main.js:
+
+`import 'bootstrap/dist/css/bootstrap.min.css'`
+
+Install vue toastification:
+
+`npm i vue-toastification@next`
+
+Import vue toastification to main.js:
+
+```javascript
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+app.use(Toast);
+```
