@@ -39,7 +39,7 @@ Install vuex and axios together:
 
 Install Bootstrap:
 
-`npm install bootstrap@5.1.3`
+`npm install bootstrap@5.3.0`
 
 Import Bootstrap to main.js:
 
