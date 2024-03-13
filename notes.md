@@ -45,6 +45,9 @@ Import Bootstrap to main.js:
 
 `import 'bootstrap/dist/css/bootstrap.min.css'`
 
+Import Bootstrap bundle js file to main.js (only if you wish to use components like NavBar, dropdowns etc)
+`import 'bootstrap/dist/js/bootstrap.bundle.min.js'`
+
 Install vue toastification:
 
 `npm i vue-toastification@next`
